@@ -17,7 +17,7 @@ use crate::{
 };
 use iced::{
     Alignment, Element, Length, Padding, Subscription, SurfaceId, Task,
-    widget::{Column, Image, Row, Svg, container, toggler},
+    widget::{Column, Image, Row, Svg, container},
 };
 use log::debug;
 
@@ -124,19 +124,18 @@ impl TrayModule {
                 toggle_type: Some(toggle_type),
                 toggle_state: Some(state),
                 ..
-            } if toggle_type == "checkmark" => container(
-                toggler(*state > 0)
-                    .label(label.replace("_", "").to_owned())
-                    .on_toggle({
-                        let name = name.to_owned();
-                        let id = layout.0;
-
-                        move |_| Message::MenuSelected(name.to_owned(), id)
-                    })
-                    .width(Length::Fill),
-            )
-            .padding([space.xs, space.md])
-            .into(),
+            } if toggle_type == "checkmark" => styled_button(label.replace("_", ""))
+                .icon(
+                    if *state > 0 {
+                        StaticIcon::Check
+                    } else {
+                        StaticIcon::CheckBlank
+                    },
+                    IconPosition::After,
+                )
+                .on_press(Message::MenuSelected(name.to_owned(), layout.0))
+                .width(Length::Fill)
+                .into(),
             LayoutProps {
                 children_display: Some(display),
                 label: Some(label),

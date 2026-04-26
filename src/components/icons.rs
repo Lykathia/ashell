@@ -128,6 +128,8 @@ pub enum StaticIcon {
     Bell,
     BellBadge,
     Delete,
+    Check,
+    CheckBlank,
 }
 
 impl StaticIcon {
@@ -240,6 +242,8 @@ impl StaticIcon {
             StaticIcon::Bell => "\u{eaa2}",
             StaticIcon::BellBadge => "\u{eb9a}",
             StaticIcon::Delete => "\u{f01b4}",
+            StaticIcon::Check => "\u{f012c}",
+            StaticIcon::CheckBlank => "\u{f0131}",
         }
     }
 
